@@ -1,4 +1,4 @@
-const gameBoard = (() => {
+const createBoard = (() => {
     let gameArr = []
     for(let i = 0; i < 3; i++){
         gameArr.push(["_", "_", "_"])
@@ -9,7 +9,7 @@ const gameBoard = (() => {
 
 function displayBoard (board) {
     let row = ""
-    for(let i = 0; i < 3; i++){
+    for(let i = 0; i < board.length; i++){
         for(let j = 0; j < board.length; j++){
             row += (board[i][j] + " ")
         }
@@ -22,4 +22,13 @@ function createPlayer(name, marker) {
     return {name, marker}
 }
 
-displayBoard(gameBoard)
+function createGame(gameBoard, p1Name, p2Name){
+    const player1 = createPlayer(p1Name, "O")
+    const player2 = createPlayer(p2Name, "X")
+
+    return { gameBoard, player1, player2 }
+}
+
+const game = createGame(createBoard, "Ben", "Test")
+displayBoard(game.gameBoard)
+console.log(game)
