@@ -29,7 +29,7 @@ function createGame(gameBoard, p1Name, p2Name){
     return { gameBoard, player1, player2 }
 }
 
-function gameFlow(game) {
+function turnController(game) {
     let turn = game.player1
     function changeTurn(player){
         if (player === game.player1){
@@ -58,7 +58,7 @@ function gameFlow(game) {
 
 
 const newGame = createGame(createBoard, "Ben", "Test")
-const newGameFlow = gameFlow(newGame)
+const newGameFlow = turnController(newGame)
 
 console.log(newGameFlow.currentPlayer())
 newGameFlow.player2Turn()
