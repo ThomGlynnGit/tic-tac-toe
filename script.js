@@ -1,10 +1,10 @@
 const gameBoard = (() => {
-    let gameBoard = []
+    let gameArr = []
     for(let i = 0; i < 3; i++){
-        gameBoard.push(["", "", ""])
+        gameArr.push(["", "", ""])
     }
 
-    return gameBoard
+    return gameArr
 })()
 
 console.log(gameBoard)
