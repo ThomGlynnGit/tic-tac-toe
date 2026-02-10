@@ -29,6 +29,42 @@ function createGame(gameBoard, p1Name, p2Name){
     return { gameBoard, player1, player2 }
 }
 
-const game = createGame(createBoard, "Ben", "Test")
-displayBoard(game.gameBoard)
-console.log(game)
+function gameFlow(game) {
+    let turn = game.player1
+    function changeTurn(player){
+        if (player === game.player1){
+            turn = game.player2
+        }
+        else if (player === game.player2) {
+            turn = game.player1
+        }
+    }
+    return {
+        player2Turn() {
+            changeTurn(game.player1)
+        },
+
+        player1Turn() {
+            changeTurn(game.player2)
+        },
+
+        currentPlayer() {
+            return turn
+        },
+    }
+}
+
+
+
+
+const newGame = createGame(createBoard, "Ben", "Test")
+const newGameFlow = gameFlow(newGame)
+
+console.log(newGameFlow.currentPlayer())
+newGameFlow.player2Turn()
+console.log(newGameFlow.currentPlayer())
+newGameFlow.player1Turn()
+console.log(newGameFlow.currentPlayer())
+
+displayBoard(newGame.gameBoard)
+console.log(newGame)
