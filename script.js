@@ -7,4 +7,10 @@ const gameBoard = (() => {
     return gameArr
 })()
 
+function createPlayer(name, marker) {
+    return {name, marker}
+}
+
+
+
 console.log(gameBoard)
