@@ -56,30 +56,40 @@ function createTurnController(game) {
 }
 
 function completeController(game) {
-    if(game.gameBoard[0][0] === game.gameBoard[0][1] && game.gameBoard[0][0] === game.gameBoard[0][2]){
+    if(game.gameBoard[0][0] !== "_" && game.gameBoard[0][0] === game.gameBoard[0][1] && game.gameBoard[0][0] === game.gameBoard[0][2]){
         game.complete = true
     }
-    else if(game.gameBoard[1][0] === game.gameBoard[1][1] && game.gameBoard[1][0] === game.gameBoard[1][2]){
+    else if(game.gameBoard[1][0] !== "_" && game.gameBoard[1][0] === game.gameBoard[1][1] && game.gameBoard[1][0] === game.gameBoard[1][2]){
         game.complete = true
     }
-    else if(game.gameBoard[2][0] === game.gameBoard[2][1] && game.gameBoard[2][0] === game.gameBoard[2][2]){
+    else if(game.gameBoard[2][0] !== "_" && game.gameBoard[2][0] === game.gameBoard[2][1] && game.gameBoard[2][0] === game.gameBoard[2][2]){
         game.complete = true
     }
-    else if(game.gameBoard[0][0] === game.gameBoard[1][0] && game.gameBoard[0][0] === game.gameBoard[2][0]){
+    else if(game.gameBoard[0][0] !== "_" && game.gameBoard[0][0] === game.gameBoard[1][0] && game.gameBoard[0][0] === game.gameBoard[2][0]){
         game.complete = true
     }
-    else if(game.gameBoard[0][1] === game.gameBoard[1][1] && game.gameBoard[0][1] === game.gameBoard[2][1]){
+    else if(game.gameBoard[0][1] !== "_" && game.gameBoard[0][1] === game.gameBoard[1][1] && game.gameBoard[0][1] === game.gameBoard[2][1]){
         game.complete = true
     }
-    else if(game.gameBoard[0][2] === game.gameBoard[1][2] && game.gameBoard[0][2] === game.gameBoard[2][2]){
+    else if(game.gameBoard[0][2] !== "_" && game.gameBoard[0][2] === game.gameBoard[1][2] && game.gameBoard[0][2] === game.gameBoard[2][2]){
         game.complete = true
     }
-    else if(game.gameBoard[0][0] === game.gameBoard[1][1] && game.gameBoard[0][0] === game.gameBoard[2][2]){
+    else if(game.gameBoard[0][0] !== "_" && game.gameBoard[0][0] === game.gameBoard[1][1] && game.gameBoard[0][0] === game.gameBoard[2][2]){
         game.complete = true
     }
-    else if(game.gameBoard[0][2] === game.gameBoard[1][1] && game.gameBoard[0][2] === game.gameBoard[2][0]){
+    else if(game.gameBoard[0][2] !== "_" && game.gameBoard[0][2] === game.gameBoard[1][1] && game.gameBoard[0][2] === game.gameBoard[2][0]){
         game.complete = true
     }  
+}
+
+function makeMove(game, flowController){
+    let inpR = prompt("Row: ")
+    let inpC = prompt("Col: ") 
+    let rowNum = parseInt(inpR)
+    let colNum = parseInt(inpC)
+
+    game.gameBoard[rowNum][colNum] = flowController.currentPlayer().marker
+
 }
 
 
@@ -91,7 +101,12 @@ console.log(newGameFlow.currentPlayer())
 newGameFlow.player2Turn()
 console.log(newGameFlow.currentPlayer())
 newGameFlow.player1Turn()
-console.log(newGameFlow.currentPlayer())
+console.log(newGame.complete)
+makeMove(newGame, newGameFlow)
+makeMove(newGame, newGameFlow)
+makeMove(newGame, newGameFlow)
+completeController(newGame)
+console.log(newGame.complete)
 
 displayBoard(newGame.gameBoard)
 console.log(newGame)
