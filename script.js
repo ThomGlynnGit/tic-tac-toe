@@ -143,7 +143,15 @@ function createPlayGame(){
     console.log(`${newGameFlow.currentPlayer().name} wins!`)
     displayBoard(newGame.gameBoard)
 
+
 }
 
-createPlayGame()
+function playChoice(){
+    const choice = prompt("Do you want to play?")
+    if (choice.toUpperCase() === "Y"){
+        createPlayGame()
+    }
+}
+
+playChoice()
 
