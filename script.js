@@ -92,21 +92,32 @@ function makeMove(game, flowController){
 
 }
 
+function createPlayGame(){
+    const fName = prompt("Player 1 name: ")
+    const sName = prompt("Player 2 name: ")
+    const newGame = createGame(createBoard, fName, sName)
+    const newGameFlow = createTurnController(newGame)
+    displayBoard(newGame.gameBoard)
 
+    while (newGame.complete !== true) {
+        console.log(`${newGameFlow.currentPlayer().name}'s turn`)
+        makeMove(newGame, newGameFlow)
+        
+        if (newGameFlow.currentPlayer() === newGame.player1){
+            newGameFlow.player2Turn()
+        }
+        else if (newGameFlow.currentPlayer() === newGame.player2) {
+            newGameFlow.player1Turn()
+        }
 
-const newGame = createGame(createBoard, "Ben", "Test")
-const newGameFlow = createTurnController(newGame)
+        completeController(newGame)
 
-console.log(newGameFlow.currentPlayer())
-newGameFlow.player2Turn()
-console.log(newGameFlow.currentPlayer())
-newGameFlow.player1Turn()
-console.log(newGame.complete)
-makeMove(newGame, newGameFlow)
-makeMove(newGame, newGameFlow)
-makeMove(newGame, newGameFlow)
-completeController(newGame)
-console.log(newGame.complete)
+        displayBoard(newGame.gameBoard)
 
-displayBoard(newGame.gameBoard)
-console.log(newGame)
+    }
+    console.log(`${newGameFlow.currentPlayer().name} wins!`)
+
+}
+
+createPlayGame()
+
