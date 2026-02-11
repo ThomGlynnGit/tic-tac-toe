@@ -70,11 +70,51 @@ function completeController(game) {
     }  
 }
 
+//More precisise solution to win logic. Not included in solution as it's not my code
+/*
+function completeController(game) {
+    const b = game.gameBoard
+    const lines = [
+        // Rows
+        [b[0][0], b[0][1], b[0][2]],
+        [b[1][0], b[1][1], b[1][2]],
+        [b[2][0], b[2][1], b[2][2]],
+        // Columns
+        [b[0][0], b[1][0], b[2][0]],
+        [b[0][1], b[1][1], b[2][1]],
+        [b[0][2], b[1][2], b[2][2]],
+        // Diagonals
+        [b[0][0], b[1][1], b[2][2]],
+        [b[0][2], b[1][1], b[2][0]],
+    ]
+
+    for (const line of lines) {
+        if (line[0] !== "_" && line.every(cell => cell === line[0])) {
+            game.complete = true
+            return
+        }
+    }
+}*/
+
 function makeMove(game, flowController){
     let inpR = prompt("Row: ")
     let inpC = prompt("Col: ") 
     let rowNum = parseInt(inpR)
     let colNum = parseInt(inpC)
+
+    if (
+        Number.isNaN(rowNum) || Number.isNaN(colNum) ||
+        rowNum < 0 || rowNum > 2 ||
+        colNum < 0 || colNum > 2
+    ){
+        console.log("Invalid coordinates! Try again")
+        return makeMove(game, flowController)
+    }
+
+    if (game.gameBoard[rowNum][colNum] !== "_" ){
+        console.log("You can't move there! Try again")
+        return makeMove(game, flowController)
+    }
 
     game.gameBoard[rowNum][colNum] = flowController.currentPlayer().marker
 
