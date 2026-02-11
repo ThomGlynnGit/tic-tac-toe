@@ -32,23 +32,11 @@ function createGame(gameBoard, p1Name, p2Name){
 
 function createTurnController(game) {
     let turn = game.player1
-    function changeTurn(player){
-        if (player === game.player1){
-            turn = game.player2
-        }
-        else if (player === game.player2) {
-            turn = game.player1
-        }
-    }
+    
     return {
-        player2Turn() {
-            changeTurn(game.player1)
+        switchTurn(){
+            turn = (turn === game.player1) ? game.player2 : game.player1
         },
-
-        player1Turn() {
-            changeTurn(game.player2)
-        },
-
         currentPlayer() {
             return turn
         },
@@ -102,20 +90,18 @@ function createPlayGame(){
     while (newGame.complete !== true) {
         console.log(`${newGameFlow.currentPlayer().name}'s turn`)
         makeMove(newGame, newGameFlow)
-        
-        if (newGameFlow.currentPlayer() === newGame.player1){
-            newGameFlow.player2Turn()
-        }
-        else if (newGameFlow.currentPlayer() === newGame.player2) {
-            newGameFlow.player1Turn()
-        }
 
         completeController(newGame)
+
+        if (newGame.complete) break
+        
+        newGameFlow.switchTurn()
 
         displayBoard(newGame.gameBoard)
 
     }
     console.log(`${newGameFlow.currentPlayer().name} wins!`)
+    displayBoard(newGame.gameBoard)
 
 }
 
