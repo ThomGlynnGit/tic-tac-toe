@@ -162,9 +162,6 @@ function createPlayGame(){
     else if(newGame.complete === false){
         console.log("It's a draw!")
     }
-    
-    
-
 
 }
 
@@ -203,8 +200,20 @@ function createDomBoard(board){
             square.innerHTML = ""
         }
     }
+
+    function update(row, col, marker){
+        const domBoard = boardContainer.querySelectorAll("div")
+
+        for(const square of domBoard){
+            if (square.dataset.row == row && 
+            square.dataset.col == col)
+            
+
+            square.textContent = marker
+        }
+    }
     
-    return { boardToDom, clear }
+    return { boardToDom, clear, update }
 }
 
 
