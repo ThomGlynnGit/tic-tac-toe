@@ -129,17 +129,18 @@ function createPlayGame(){
     const sName = prompt("Player 2 name: ")
     const newGame = createGame(createBoard, fName, sName)
     const newGameFlow = createTurnController(newGame)
-    const domBoard = createDomBoard(newGame.gameBoard)
+    const domBoard = createDomBoard(newGame.gameBoard, newGameFlow)
 
     displayBoard(newGame.gameBoard)
     domBoard.boardToDom()
     
     let moveCounter = 0
+    
     /*
     while (newGame.complete !== true  && moveCounter < 9) {
 
         moveCounter++
-        console.log(moveCounter)
+
         console.log(`${newGameFlow.currentPlayer().name}'s turn`)
         makeMove(newGame, newGameFlow)
 
@@ -172,7 +173,7 @@ function playChoice(){
     }
 }
 
-function createDomBoard(board){
+function createDomBoard(board, turnController){
     const boardContainer = document.createElement("div")
     boardContainer.className = "board-container"
     document.querySelector("body").appendChild(boardContainer)
@@ -191,6 +192,12 @@ function createDomBoard(board){
                 boardContainer.appendChild(temp)
             }
         }
+
+        const playerText = document.createElement("div")
+        playerText.className = "player"
+        playerText.textContent = turnController.currentPlayer().name
+        boardContainer.appendChild(playerText)
+
     }
 
     function clear(){
