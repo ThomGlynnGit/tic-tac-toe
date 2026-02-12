@@ -130,21 +130,33 @@ function createPlayGame(){
     const newGame = createGame(createBoard, fName, sName)
     const newGameFlow = createTurnController(newGame)
     displayBoard(newGame.gameBoard)
+    let moveCounter = 0
 
-    while (newGame.complete !== true) {
+    while (newGame.complete !== true  && moveCounter < 9) {
+
+        moveCounter++
+        console.log(moveCounter)
         console.log(`${newGameFlow.currentPlayer().name}'s turn`)
         makeMove(newGame, newGameFlow)
 
         completeController(newGame)
+        console.log(newGame.complete)
 
         if (newGame.complete) break
         
         newGameFlow.switchTurn()
 
         displayBoard(newGame.gameBoard)
+        
 
     }
-    console.log(`${newGameFlow.currentPlayer().name} wins!`)
+    if(newGame.complete === true){
+        console.log(`${newGameFlow.currentPlayer().name} wins!`)
+    }
+    else if(newGame.complete === false){
+        console.log("It's a draw!")
+    }
+    
     displayBoard(newGame.gameBoard)
 
 
