@@ -129,9 +129,13 @@ function createPlayGame(){
     const sName = prompt("Player 2 name: ")
     const newGame = createGame(createBoard, fName, sName)
     const newGameFlow = createTurnController(newGame)
-    displayBoard(newGame.gameBoard)
-    let moveCounter = 0
+    const domBoard = createDomBoard(newGame.gameBoard)
 
+    displayBoard(newGame.gameBoard)
+    domBoard.boardToDom()
+    
+    let moveCounter = 0
+    /*
     while (newGame.complete !== true  && moveCounter < 9) {
 
         moveCounter++
@@ -148,16 +152,18 @@ function createPlayGame(){
 
         displayBoard(newGame.gameBoard)
         
+        
+    }*/
 
-    }
     if(newGame.complete === true){
         console.log(`${newGameFlow.currentPlayer().name} wins!`)
+        displayBoard(newGame.gameBoard)
     }
     else if(newGame.complete === false){
         console.log("It's a draw!")
     }
     
-    displayBoard(newGame.gameBoard)
+    
 
 
 }
@@ -168,6 +174,31 @@ function playChoice(){
         createPlayGame()
     }
 }
+
+function createDomBoard(board){
+    const boardContainer = document.createElement("div")
+    boardContainer.className = "board-container"
+    document.querySelector("body").appendChild(boardContainer)
+
+ 
+    function boardToDom(){
+        boardContainer.innerHTML = ""
+
+        for(let i = 0; i < board.length; i++){
+            for(let j = 0; j < board.length; j++){
+                const temp = document.createElement("div")
+                temp.className = "square"
+                temp.textContent = board[i][j]
+                temp.dataset.row = i
+                temp.dataset.col = j
+                boardContainer.appendChild(temp)
+            }
+        }
+    }
+    
+    return { boardToDom }
+}
+
 
 playChoice()
 
