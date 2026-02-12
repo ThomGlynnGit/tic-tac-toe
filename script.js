@@ -7,6 +7,7 @@ const createBoard = (() => {
     return gameArr
 })()
 
+//loops through gameboard array and displays in console
 function displayBoard (board) {
     let row = ""
     for(let i = 0; i < board.length; i++){
@@ -43,6 +44,7 @@ function createTurnController(game) {
     }
 }
 
+//logic checks if start of row/col/diag is empty, and if not checks if all are equal
 function completeController(game) {
     if(game.gameBoard[0][0] !== "_" && game.gameBoard[0][0] === game.gameBoard[0][1] && game.gameBoard[0][0] === game.gameBoard[0][2]){
         game.complete = true
@@ -96,12 +98,14 @@ function completeController(game) {
     }
 }*/
 
+//takes input for row and column and places current player's marker
 function makeMove(game, flowController){
     let inpR = prompt("Row: ")
     let inpC = prompt("Col: ") 
     let rowNum = parseInt(inpR)
     let colNum = parseInt(inpC)
 
+    //input validation - type & range checks
     if (
         Number.isNaN(rowNum) || Number.isNaN(colNum) ||
         rowNum < 0 || rowNum > 2 ||
@@ -110,7 +114,7 @@ function makeMove(game, flowController){
         console.log("Invalid coordinates! Try again")
         return makeMove(game, flowController)
     }
-
+    //checking if space is already taken
     if (game.gameBoard[rowNum][colNum] !== "_" ){
         console.log("You can't move there! Try again")
         return makeMove(game, flowController)
