@@ -174,13 +174,16 @@ function playChoice(){
 }
 
 function createDomBoard(board, turnController){
-    const boardContainer = document.createElement("div")
-    boardContainer.className = "board-container"
-    document.querySelector("body").appendChild(boardContainer)
+    const gameContainer = document.createElement("div")
+    gameContainer.className = "game-container"
+    document.querySelector("body").appendChild(gameContainer)
 
  
     function boardToDom(){
-        boardContainer.innerHTML = ""
+        gameContainer.innerHTML = ""
+        const boardContainer = document.createElement("div")
+        boardContainer.className = "board-container"
+        gameContainer.appendChild(boardContainer)
 
         for(let i = 0; i < board.length; i++){
             for(let j = 0; j < board.length; j++){
@@ -196,7 +199,7 @@ function createDomBoard(board, turnController){
         const playerText = document.createElement("div")
         playerText.className = "player"
         playerText.textContent = turnController.currentPlayer().name
-        boardContainer.appendChild(playerText)
+        gameContainer.appendChild(playerText)
 
     }
 
@@ -218,6 +221,8 @@ function createDomBoard(board, turnController){
 
             square.textContent = marker
         }
+
+
     }
     
     return { boardToDom, clear, update }
