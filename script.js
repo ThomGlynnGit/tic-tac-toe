@@ -195,8 +195,16 @@ function createDomBoard(board){
             }
         }
     }
+
+    function clear(){
+        const domBoard = boardContainer.querySelectorAll("div")
+
+        for(const square of domBoard){
+            square.innerHTML = ""
+        }
+    }
     
-    return { boardToDom }
+    return { boardToDom, clear }
 }
 
 
