@@ -99,7 +99,7 @@ function completeController(game) {
 }*/
 
 //takes input for row and column and places current player's marker
-function makeMove(game, flowController){
+function makeMove(game, flowController, domBoard){
     let inpR = prompt("Row: ")
     let inpC = prompt("Col: ") 
     let rowNum = parseInt(inpR)
@@ -111,7 +111,7 @@ function makeMove(game, flowController){
         rowNum < 0 || rowNum > 2 ||
         colNum < 0 || colNum > 2
     ){
-        console.log("Invalid coordinates! Try again")
+        console.log("Invalid coordinatens! Try again")
         return makeMove(game, flowController)
     }
     //checking if space is already taken
@@ -121,7 +121,7 @@ function makeMove(game, flowController){
     }
 
     game.gameBoard[rowNum][colNum] = flowController.currentPlayer().marker
-
+    domBoard.update(rowNum,colNum,flowController.currentPlayer().marker)
 }
 
 function createPlayGame(){
@@ -136,13 +136,13 @@ function createPlayGame(){
     
     let moveCounter = 0
     
-    /*
     while (newGame.complete !== true  && moveCounter < 9) {
 
         moveCounter++
-
+        
         console.log(`${newGameFlow.currentPlayer().name}'s turn`)
-        makeMove(newGame, newGameFlow)
+        
+        makeMove(newGame, newGameFlow, domBoard)
 
         completeController(newGame)
         console.log(newGame.complete)
@@ -154,7 +154,7 @@ function createPlayGame(){
         displayBoard(newGame.gameBoard)
         
         
-    }*/
+    }
 
     if(newGame.complete === true){
         console.log(`${newGameFlow.currentPlayer().name} wins!`)
@@ -178,9 +178,9 @@ function createDomBoard(board, turnController){
     gameContainer.className = "game-container"
     document.querySelector("body").appendChild(gameContainer)
 
- 
     function boardToDom(){
         gameContainer.innerHTML = ""
+
         const boardContainer = document.createElement("div")
         boardContainer.className = "board-container"
         gameContainer.appendChild(boardContainer)
@@ -212,7 +212,7 @@ function createDomBoard(board, turnController){
     }
 
     function update(row, col, marker){
-        const domBoard = boardContainer.querySelectorAll("div")
+        const domBoard = document.querySelectorAll(".square")
 
         for(const square of domBoard){
             if (square.dataset.row == row && 
@@ -222,6 +222,9 @@ function createDomBoard(board, turnController){
             square.textContent = marker
         }
 
+        const playerText = document.querySelector(".player")
+
+        playerText.textContent = turnController.currentPlayer().name
 
     }
     
