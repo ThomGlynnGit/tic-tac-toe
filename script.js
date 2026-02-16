@@ -7,6 +7,7 @@ const createBoard = (() => {
     return gameArr
 })()
 
+/* kept only for debugging purposes
 //loops through gameboard array and displays in console
 function displayBoard (board) {
     let row = ""
@@ -17,7 +18,7 @@ function displayBoard (board) {
         console.log((i+1) + ": " + row)
         row = ""
     }
-}
+}*/
 
 function createPlayer(name, marker) {
     return {name, marker}
@@ -75,6 +76,10 @@ function completeController(game) {
 //takes input for row and column and places current player's marker
 function makeMove(game, flowController, domBoard, row, col){
 
+    let valid = false
+
+    const errorText = document.querySelector(".error")
+    
     let rowNum = parseInt(row)
     let colNum = parseInt(col)
     
@@ -84,20 +89,27 @@ function makeMove(game, flowController, domBoard, row, col){
         rowNum < 0 || rowNum > 2 ||
         colNum < 0 || colNum > 2
     ){
-        console.log("Invalid coordinatens! Try again")
-        return makeMove(game, flowController)
+
+        errorText.textContent = "Invalid coordinatens! Try again"
+        valid = false
     }
     //checking if space is already taken
     else if (game.gameBoard[rowNum][colNum] !== "_" ){
-        console.log("You can't move there! Try again")
-        return makeMove(game, flowController)
+
+        errorText.textContent = "You can't move there! Try again"
+        valid = false
+
     } 
     else {
+        errorText.textContent = ""
+
         game.gameBoard[rowNum][colNum] = flowController.currentPlayer().marker
         completeController(game)
         domBoard.update(rowNum,colNum,flowController.currentPlayer().marker, game.complete)
+        valid = true
     }
 
+    return valid
     
 }
 
@@ -110,8 +122,6 @@ function createPlayGame(){
     const winContainer = document.createElement("div")
     const winText = document.createElement("p")
 
-
-    displayBoard(newGame.gameBoard)
     domBoard.boardToDom()
     
     const squareList = document.querySelectorAll(".square")
@@ -120,10 +130,15 @@ function createPlayGame(){
 
     for(const square of squareList){
         square.addEventListener("click", () => {
-            if(!newGame.complete){
-                moveCounter++
+            if(!newGame.complete && makeMove !== false){
 
-                makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
+                const move = makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
+
+                move
+
+                if(move !== false){
+                    moveCounter++
+                }
 
                 if(newGame.complete === true){
                     winText.textContent = `${newGameFlow.currentPlayer().name} wins!`
@@ -131,8 +146,6 @@ function createPlayGame(){
                     winContainer.appendChild(winText)
 
                     document.querySelector(".game-container").appendChild(winContainer)
-
-                    displayBoard(newGame.gameBoard) 
                 }   
                 else if(newGame.complete === false && moveCounter === 9){
                     winText.textContent = "It's a draw!"
@@ -140,7 +153,8 @@ function createPlayGame(){
                     winContainer.appendChild(winText)
 
                     document.querySelector(".game-container").appendChild(winContainer)
-                }  
+                }
+                
             }       
         })
     }
@@ -181,6 +195,8 @@ function createDomBoard(board, turnController){
     const gameContainer = document.createElement("div")
     gameContainer.className = "game-container"
     document.querySelector("body").appendChild(gameContainer)
+    const errorText = document.createElement("p")
+    errorText.className = "error"
 
     function boardToDom(){
         gameContainer.innerHTML = ""
@@ -204,6 +220,7 @@ function createDomBoard(board, turnController){
         playerText.className = "player"
         playerText.textContent = turnController.currentPlayer().name
         gameContainer.appendChild(playerText)
+        gameContainer.appendChild(errorText)
 
     }
 
