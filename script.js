@@ -204,7 +204,7 @@ function createDomBoard(board, turnController){
     }
 
     function clear(){
-        const domBoard = boardContainer.querySelectorAll("div")
+        const domBoard = document.querySelectorAll(".square")
 
         for(const square of domBoard){
             square.innerHTML = ""
