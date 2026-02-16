@@ -133,6 +133,9 @@ function createPlayGame(){
     const newGame = createGame(createBoard, fName, sName)
     const newGameFlow = createTurnController(newGame)
     const domBoard = createDomBoard(newGame.gameBoard, newGameFlow)
+    const winContainer = document.createElement("div")
+    const winText = document.createElement("p")
+
 
     displayBoard(newGame.gameBoard)
     domBoard.boardToDom()
@@ -149,11 +152,20 @@ function createPlayGame(){
                 makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
 
                 if(newGame.complete === true){
-                    console.log(`${newGameFlow.currentPlayer().name} wins!`)
+                    winText.textContent = `${newGameFlow.currentPlayer().name} wins!`
+
+                    winContainer.appendChild(winText)
+
+                    document.querySelector(".game-container").appendChild(winContainer)
+
                     displayBoard(newGame.gameBoard) 
                 }   
                 else if(newGame.complete === false && moveCounter === 9){
-                    console.log("It's a draw!")
+                    winText.textContent = "It's a draw!"
+
+                    winContainer.appendChild(winText)
+
+                    document.querySelector(".game-container").appendChild(winContainer)
                 }  
             }       
         })
