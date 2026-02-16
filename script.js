@@ -142,46 +142,28 @@ function createPlayGame(){
 
     for(const square of squareList){
         square.addEventListener("click", () => {
-            moveCounter++
+            if(!newGame.complete){
+                moveCounter++
 
-            makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
+                makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
 
-            completeController(newGame)
+                completeController(newGame)
 
-            if (!newGame.complete) {
-                newGameFlow.switchTurn()
-            }
+                if(newGame.complete === true){
+                    console.log(`${newGameFlow.currentPlayer().name} wins!`)
+                    displayBoard(newGame.gameBoard) 
+                }   
+                else if(newGame.complete === false && moveCounter === 9){
+                    console.log("It's a draw!")
+                }
+                else {
+                    newGameFlow.switchTurn()
+                }   
+            }       
         })
     }
+
     
-    /*
-    while (newGame.complete !== true  && moveCounter < 9) {
-
-        moveCounter++
-        
-        console.log(`${newGameFlow.currentPlayer().name}'s turn`)
-        
-        makeMove(newGame, newGameFlow, domBoard)
-
-        completeController(newGame)
-        console.log(newGame.complete)
-
-        if (newGame.complete) break
-        
-        newGameFlow.switchTurn()
-
-        displayBoard(newGame.gameBoard)
-        
-        
-    }*/
-
-    if(newGame.complete === true){
-        console.log(`${newGameFlow.currentPlayer().name} wins!`)
-        displayBoard(newGame.gameBoard)
-    }
-    else if(newGame.complete === false){
-        console.log("It's a draw!")
-    }
 
 }
 
