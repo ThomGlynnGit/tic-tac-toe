@@ -113,6 +113,7 @@ function makeMove(game, flowController, domBoard, row, col){
     
 }
 
+//dynamically create name entry form for new game
 function nameEntry(){
     const entryError = document.createElement("p")
 
@@ -145,6 +146,8 @@ function nameEntry(){
     const fBtn = document.createElement("button")
     fBtn.setAttribute("type","button")
     fBtn.textContent = "Start game"
+
+    //if both names are entered, start a new game
     fBtn.addEventListener("click", () => {
         if(sNameInput.value !== "" && 
             fNameInput.value !== ""){
@@ -252,14 +255,16 @@ function createDomBoard(board, turnController, game){
     const gameContainer = document.createElement("div")
     gameContainer.className = "game-container"
     document.querySelector("body").appendChild(gameContainer)
+
     const errorText = document.createElement("p")
     errorText.className = "error"
-    const newGameBtn = document.createElement("button")
-    newGameBtn.className = "button"
-    newGameBtn.id = "clear"
-    newGameBtn.textContent = "Clear board"
 
-    newGameBtn.addEventListener("click", () => {
+    const clearBtn = document.createElement("button")
+    clearBtn.className = "button"
+    clearBtn.id = "clear"
+    clearBtn.textContent = "Clear board"
+
+    clearBtn.addEventListener("click", () => {
         clear()
 
         createPlayGame(game.player1.name, game.player2.name)
@@ -288,7 +293,7 @@ function createDomBoard(board, turnController, game){
         playerText.textContent = turnController.currentPlayer().name
         gameContainer.appendChild(playerText)
         gameContainer.appendChild(errorText)
-        gameContainer.appendChild(newGameBtn)
+        gameContainer.appendChild(clearBtn)
 
     }
 
@@ -303,7 +308,6 @@ function createDomBoard(board, turnController, game){
             if (square.dataset.row == row && 
             square.dataset.col == col)
             
-
             square.textContent = marker
         }
 
