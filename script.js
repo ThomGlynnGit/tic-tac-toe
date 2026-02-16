@@ -160,8 +160,8 @@ function nameEntry(){
         }
     })
 
-    sNameContainer.appendChild(fNameLabel)
-    sNameContainer.appendChild(fNameInput)
+    sNameContainer.appendChild(sNameLabel)
+    sNameContainer.appendChild(sNameInput)
     fNameContainer.appendChild(fNameLabel)
     fNameContainer.appendChild(fNameInput)
     
@@ -190,7 +190,7 @@ function createPlayGame(fName, sName){
 
     for(const square of squareList){
         square.addEventListener("click", () => {
-            if(!newGame.complete && makeMove !== false){
+            if(!newGame.complete){
 
                 const move = makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
 
