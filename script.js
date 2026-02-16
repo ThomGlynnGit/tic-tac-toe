@@ -263,11 +263,20 @@ function createDomBoard(board, turnController, game){
     clearBtn.className = "button"
     clearBtn.id = "clear"
     clearBtn.textContent = "Clear board"
-
     clearBtn.addEventListener("click", () => {
         clear()
 
         createPlayGame(game.player1.name, game.player2.name)
+    })
+
+    const newPlayersBtn = document.createElement("button")
+    newPlayersBtn.className = "button"
+    newPlayersBtn.id = "new-players-btn"
+    newPlayersBtn.textContent = "New players"
+    newPlayersBtn.addEventListener("click", () => {
+        clear()
+
+        nameEntry()
     })
 
     function boardToDom(){
@@ -294,7 +303,7 @@ function createDomBoard(board, turnController, game){
         gameContainer.appendChild(playerText)
         gameContainer.appendChild(errorText)
         gameContainer.appendChild(clearBtn)
-
+        gameContainer.appendChild(newPlayersBtn)
     }
 
     function clear(){
