@@ -99,12 +99,11 @@ function completeController(game) {
 }*/
 
 //takes input for row and column and places current player's marker
-function makeMove(game, flowController, domBoard){
-    let inpR = prompt("Row: ")
-    let inpC = prompt("Col: ") 
-    let rowNum = parseInt(inpR)
-    let colNum = parseInt(inpC)
+function makeMove(game, flowController, domBoard, row, col){
 
+    let rowNum = parseInt(row)
+    let colNum = parseInt(col)
+    
     //input validation - type & range checks
     if (
         Number.isNaN(rowNum) || Number.isNaN(colNum) ||
@@ -115,13 +114,16 @@ function makeMove(game, flowController, domBoard){
         return makeMove(game, flowController)
     }
     //checking if space is already taken
-    if (game.gameBoard[rowNum][colNum] !== "_" ){
+    else if (game.gameBoard[rowNum][colNum] !== "_" ){
         console.log("You can't move there! Try again")
         return makeMove(game, flowController)
+    } 
+    else {
+        game.gameBoard[rowNum][colNum] = flowController.currentPlayer().marker
+        domBoard.update(rowNum,colNum,flowController.currentPlayer().marker)
     }
 
-    game.gameBoard[rowNum][colNum] = flowController.currentPlayer().marker
-    domBoard.update(rowNum,colNum,flowController.currentPlayer().marker)
+    
 }
 
 function createPlayGame(){
@@ -134,8 +136,25 @@ function createPlayGame(){
     displayBoard(newGame.gameBoard)
     domBoard.boardToDom()
     
-    let moveCounter = 0
+    const squareList = document.querySelectorAll(".square")
     
+    let moveCounter = 0
+
+    for(const square of squareList){
+        square.addEventListener("click", () => {
+            moveCounter++
+
+            makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
+
+            completeController(newGame)
+
+            if (!newGame.complete) {
+                newGameFlow.switchTurn()
+            }
+        })
+    }
+    
+    /*
     while (newGame.complete !== true  && moveCounter < 9) {
 
         moveCounter++
@@ -154,7 +173,7 @@ function createPlayGame(){
         displayBoard(newGame.gameBoard)
         
         
-    }
+    }*/
 
     if(newGame.complete === true){
         console.log(`${newGameFlow.currentPlayer().name} wins!`)
