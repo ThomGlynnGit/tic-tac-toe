@@ -161,10 +161,34 @@ function createPlayGame(){
 }
 
 function playChoice(){
-    const choice = prompt("Do you want to play?")
-    if (choice.toUpperCase() === "Y"){
+    const playContainer = document.createElement("div")
+    const playText = document.createElement("p")
+    const buttonContainer = document.createElement("div")
+    const yesBtn = document.createElement("button")
+    const noBtn = document.createElement("button")
+
+    playText.textContent = "Would you like to play noughts & crosses?"
+    yesBtn.textContent = "Yes"
+    noBtn.textContent = "No"
+
+    yesBtn.addEventListener("click", () => {
         createPlayGame()
-    }
+
+        playContainer.innerHTML = ""
+    })
+
+    noBtn.addEventListener("click", () => {
+        playContainer.innerHTML = "Fair enough"
+    })
+
+    buttonContainer.appendChild(yesBtn)
+    buttonContainer.appendChild(noBtn)
+
+    playContainer.appendChild(playText)
+    playContainer.appendChild(buttonContainer)
+
+    document.querySelector("body").appendChild(playContainer)
+
 }
 
 function createDomBoard(board, turnController){
@@ -217,8 +241,6 @@ function createDomBoard(board, turnController){
         }
 
         const playerText = document.querySelector(".player")
-
-        console.log(complete)
 
         if (!complete) turnController.switchTurn()
 
