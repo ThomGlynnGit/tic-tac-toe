@@ -120,7 +120,8 @@ function makeMove(game, flowController, domBoard, row, col){
     } 
     else {
         game.gameBoard[rowNum][colNum] = flowController.currentPlayer().marker
-        domBoard.update(rowNum,colNum,flowController.currentPlayer().marker)
+        completeController(game)
+        domBoard.update(rowNum,colNum,flowController.currentPlayer().marker, game.complete)
     }
 
     
@@ -147,18 +148,13 @@ function createPlayGame(){
 
                 makeMove(newGame, newGameFlow, domBoard, square.dataset.row, square.dataset.col)
 
-                completeController(newGame)
-
                 if(newGame.complete === true){
                     console.log(`${newGameFlow.currentPlayer().name} wins!`)
                     displayBoard(newGame.gameBoard) 
                 }   
                 else if(newGame.complete === false && moveCounter === 9){
                     console.log("It's a draw!")
-                }
-                else {
-                    newGameFlow.switchTurn()
-                }   
+                }  
             }       
         })
     }
@@ -209,7 +205,7 @@ function createDomBoard(board, turnController){
         }
     }
 
-    function update(row, col, marker){
+    function update(row, col, marker, complete){
         const domBoard = document.querySelectorAll(".square")
 
         for(const square of domBoard){
@@ -221,6 +217,10 @@ function createDomBoard(board, turnController){
         }
 
         const playerText = document.querySelector(".player")
+
+        console.log(complete)
+
+        if (!complete) turnController.switchTurn()
 
         playerText.textContent = turnController.currentPlayer().name
 
