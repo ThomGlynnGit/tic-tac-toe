@@ -113,9 +113,66 @@ function makeMove(game, flowController, domBoard, row, col){
     
 }
 
-function createPlayGame(){
-    const fName = prompt("Player 1 name: ")
-    const sName = prompt("Player 2 name: ")
+function nameEntry(){
+    const entryError = document.createElement("p")
+
+    const nameForm = document.createElement("form")
+    nameForm.setAttribute("method","post")
+    nameForm.setAttribute("action","#")
+
+    const fNameContainer = document.createElement("div")
+    const fNameInput = document.createElement("input")
+    fNameInput.setAttribute("type","text")
+    fNameInput.setAttribute("name","fName")
+    fNameInput.setAttribute("id","fName")
+    const fNameLabel = document.createElement("label")
+    fNameLabel.setAttribute("for","fname")
+    fNameLabel.textContent = "Player 1's name:"
+    fNameContainer.appendChild(fNameLabel)
+    fNameContainer.appendChild(fNameInput)
+
+    const sNameContainer = document.createElement("div")
+    const sNameInput = document.createElement("input")
+    sNameInput.setAttribute("type","text")
+    sNameInput.setAttribute("name","sName")
+    sNameInput.setAttribute("id","sName")
+    const sNameLabel = document.createElement("label")
+    sNameLabel.setAttribute("for","sName")
+    sNameLabel.textContent = "Player 2's name:"
+    sNameContainer.appendChild(sNameLabel)
+    sNameContainer.appendChild(sNameInput)
+
+    const fBtn = document.createElement("button")
+    fBtn.setAttribute("type","button")
+    fBtn.textContent = "Start game"
+    fBtn.addEventListener("click", () => {
+        if(sNameInput.value !== "" && 
+            fNameInput.value !== ""){
+                createPlayGame(fNameInput.value, sNameInput.value)
+                nameForm.remove()
+                entryError.remove()
+        }
+        else {
+            entryError.textContent = "Please enter a name for each player"
+        }
+    })
+
+    sNameContainer.appendChild(fNameLabel)
+    sNameContainer.appendChild(fNameInput)
+    fNameContainer.appendChild(fNameLabel)
+    fNameContainer.appendChild(fNameInput)
+    
+    nameForm.appendChild(fNameContainer)
+    nameForm.appendChild(sNameContainer)
+    nameForm.appendChild(fBtn)
+
+    document.querySelector("body").appendChild(nameForm)
+    document.querySelector("body").appendChild(entryError)
+
+
+}
+
+function createPlayGame(fName, sName){
     const newGame = createGame(createBoard, fName, sName)
     const newGameFlow = createTurnController(newGame)
     const domBoard = createDomBoard(newGame.gameBoard, newGameFlow)
@@ -172,7 +229,7 @@ function playChoice(){
     noBtn.textContent = "No"
 
     yesBtn.addEventListener("click", () => {
-        createPlayGame()
+        nameEntry()
 
         playContainer.innerHTML = ""
     })
