@@ -162,9 +162,6 @@ function createPlayGame(){
             }       
         })
     }
-
-    
-
 }
 
 function playChoice(){
