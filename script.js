@@ -1,11 +1,11 @@
-const createBoard = (() => {
+function createBoard () {
     let gameArr = []
     for(let i = 0; i < 3; i++){
         gameArr.push(["_", "_", "_"])
     }
 
     return gameArr
-})()
+}
 
 /* kept only for debugging purposes
 //loops through gameboard array and displays in console
@@ -173,9 +173,9 @@ function nameEntry(){
 }
 
 function createPlayGame(fName, sName){
-    const newGame = createGame(createBoard, fName, sName)
+    const newGame = createGame(createBoard(), fName, sName)
     const newGameFlow = createTurnController(newGame)
-    const domBoard = createDomBoard(newGame.gameBoard, newGameFlow)
+    const domBoard = createDomBoard(newGame.gameBoard, newGameFlow, newGame)
     const winContainer = document.createElement("div")
     const winText = document.createElement("p")
 
@@ -248,12 +248,22 @@ function playChoice(){
 
 }
 
-function createDomBoard(board, turnController){
+function createDomBoard(board, turnController, game){
     const gameContainer = document.createElement("div")
     gameContainer.className = "game-container"
     document.querySelector("body").appendChild(gameContainer)
     const errorText = document.createElement("p")
     errorText.className = "error"
+    const newGameBtn = document.createElement("button")
+    newGameBtn.className = "button"
+    newGameBtn.id = "clear"
+    newGameBtn.textContent = "Clear board"
+
+    newGameBtn.addEventListener("click", () => {
+        clear()
+
+        createPlayGame(game.player1.name, game.player2.name)
+    })
 
     function boardToDom(){
         gameContainer.innerHTML = ""
@@ -278,15 +288,12 @@ function createDomBoard(board, turnController){
         playerText.textContent = turnController.currentPlayer().name
         gameContainer.appendChild(playerText)
         gameContainer.appendChild(errorText)
+        gameContainer.appendChild(newGameBtn)
 
     }
 
     function clear(){
-        const domBoard = document.querySelectorAll(".square")
-
-        for(const square of domBoard){
-            square.innerHTML = ""
-        }
+        gameContainer.remove()
     }
 
     function update(row, col, marker, complete){
