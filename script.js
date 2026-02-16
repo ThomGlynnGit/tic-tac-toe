@@ -72,32 +72,6 @@ function completeController(game) {
     }  
 }
 
-//More precisise solution to win logic. Not included in solution as it's not my code
-/*
-function completeController(game) {
-    const b = game.gameBoard
-    const lines = [
-        // Rows
-        [b[0][0], b[0][1], b[0][2]],
-        [b[1][0], b[1][1], b[1][2]],
-        [b[2][0], b[2][1], b[2][2]],
-        // Columns
-        [b[0][0], b[1][0], b[2][0]],
-        [b[0][1], b[1][1], b[2][1]],
-        [b[0][2], b[1][2], b[2][2]],
-        // Diagonals
-        [b[0][0], b[1][1], b[2][2]],
-        [b[0][2], b[1][1], b[2][0]],
-    ]
-
-    for (const line of lines) {
-        if (line[0] !== "_" && line.every(cell => cell === line[0])) {
-            game.complete = true
-            return
-        }
-    }
-}*/
-
 //takes input for row and column and places current player's marker
 function makeMove(game, flowController, domBoard, row, col){
 
