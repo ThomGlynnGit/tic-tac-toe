@@ -191,6 +191,7 @@ function createPlayGame(fName, sName){
     const domBoard = createDomBoard(newGame.gameBoard, newGameFlow, newGame)
     const winContainer = document.createElement("div")
     const winText = document.createElement("p")
+    winText.className = "win"
 
     domBoard.boardToDom()
     
