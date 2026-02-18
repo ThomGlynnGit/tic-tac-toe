@@ -88,8 +88,42 @@ form > .button {
     color: var(--neg-background-colour);
 }
 
+#clear {
+    background-color: rgb(73, 117, 240);
+    color: rgb(0, 0, 0);
+}
+
+#new-players-btn {
+    background-color: rgb(47, 211, 195);
+    color: rgb(0, 0, 0);
+}
+
+.game-container {
+    display: flex;
+    margin-top: 4rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 .board-container {
     display: grid;
-    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    grid-template: repeat(3, max-content) / repeat(3, max-content);
+    gap: 5px;
+    background-color: var(--main-text-colour);
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 8rem;
+    width: 8rem;
+    background-color: white;
+}
+
+.player {
+    color: rgb(191, 28, 28);
+    font-size: 2rem;
+    margin-top: 20px;
 }
