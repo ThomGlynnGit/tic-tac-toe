@@ -294,6 +294,12 @@ function createDomBoard(board, turnController, game){
         nameEntry()
     })
 
+    const controlsContainer = document.createElement("div")
+    controlsContainer.className = "button-container"
+
+    controlsContainer.appendChild(clearBtn)
+    controlsContainer.appendChild(newPlayersBtn)
+
     function boardToDom(){
         gameContainer.innerHTML = ""
 
@@ -305,7 +311,6 @@ function createDomBoard(board, turnController, game){
             for(let j = 0; j < board.length; j++){
                 const temp = document.createElement("div")
                 temp.className = "square"
-                temp.textContent = board[i][j]
                 temp.dataset.row = i
                 temp.dataset.col = j
                 boardContainer.appendChild(temp)
@@ -317,8 +322,7 @@ function createDomBoard(board, turnController, game){
         playerText.textContent = turnController.currentPlayer().name
         gameContainer.appendChild(playerText)
         gameContainer.appendChild(moveError)
-        gameContainer.appendChild(clearBtn)
-        gameContainer.appendChild(newPlayersBtn)
+        gameContainer.appendChild(controlsContainer)
     }
 
     function clear(){
