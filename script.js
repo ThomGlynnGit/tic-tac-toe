@@ -177,9 +177,10 @@ function nameEntry(){
     nameForm.appendChild(fNameContainer)
     nameForm.appendChild(sNameContainer)
     nameForm.appendChild(fBtn)
+    nameForm.appendChild(entryError)
+
 
     document.querySelector("body").appendChild(nameForm)
-    document.querySelector("body").appendChild(entryError)
 
 
 }
