@@ -116,36 +116,45 @@ function makeMove(game, flowController, domBoard, row, col){
 //dynamically create name entry form for new game
 function nameEntry(){
     const entryError = document.createElement("p")
+    entryError.className = "error name"
 
     const nameForm = document.createElement("form")
     nameForm.setAttribute("method","post")
     nameForm.setAttribute("action","#")
 
     const fNameContainer = document.createElement("div")
+    fNameContainer.className = "name-container"
     const fNameInput = document.createElement("input")
     fNameInput.setAttribute("type","text")
     fNameInput.setAttribute("name","fName")
     fNameInput.setAttribute("id","fName")
+    fNameInput.className = "name-input"
     const fNameLabel = document.createElement("label")
     fNameLabel.setAttribute("for","fname")
     fNameLabel.textContent = "Player 1's name:"
+    fNameLabel.className = "name-label"
+
     fNameContainer.appendChild(fNameLabel)
     fNameContainer.appendChild(fNameInput)
 
     const sNameContainer = document.createElement("div")
+    sNameContainer.className = "name-container"
     const sNameInput = document.createElement("input")
     sNameInput.setAttribute("type","text")
     sNameInput.setAttribute("name","sName")
     sNameInput.setAttribute("id","sName")
+    sNameInput.className = "name-input"
     const sNameLabel = document.createElement("label")
     sNameLabel.setAttribute("for","sName")
     sNameLabel.textContent = "Player 2's name:"
+    sNameLabel.className = "name-label"
     sNameContainer.appendChild(sNameLabel)
     sNameContainer.appendChild(sNameInput)
 
     const fBtn = document.createElement("button")
     fBtn.setAttribute("type","button")
     fBtn.textContent = "Start game"
+    fBtn.className = "button posi"
 
     //if both names are entered, start a new game
     fBtn.addEventListener("click", () => {
@@ -222,10 +231,15 @@ function createPlayGame(fName, sName){
 
 function playChoice(){
     const playContainer = document.createElement("div")
+    playContainer.className = "play-container"
     const playText = document.createElement("p")
+    playText.className = "info"
     const buttonContainer = document.createElement("div")
+    buttonContainer.className = "button-container"
     const yesBtn = document.createElement("button")
+    yesBtn.className = "button posi"
     const noBtn = document.createElement("button")
+    noBtn.className = "button neg"
 
     playText.textContent = "Would you like to play noughts & crosses?"
     yesBtn.textContent = "Yes"
@@ -256,8 +270,8 @@ function createDomBoard(board, turnController, game){
     gameContainer.className = "game-container"
     document.querySelector("body").appendChild(gameContainer)
 
-    const errorText = document.createElement("p")
-    errorText.className = "error"
+    const moveError = document.createElement("p")
+    moveError.className = "error"
 
     const clearBtn = document.createElement("button")
     clearBtn.className = "button"
@@ -301,7 +315,7 @@ function createDomBoard(board, turnController, game){
         playerText.className = "player"
         playerText.textContent = turnController.currentPlayer().name
         gameContainer.appendChild(playerText)
-        gameContainer.appendChild(errorText)
+        gameContainer.appendChild(moveError)
         gameContainer.appendChild(clearBtn)
         gameContainer.appendChild(newPlayersBtn)
     }
