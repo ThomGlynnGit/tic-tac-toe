@@ -80,6 +80,13 @@ form > .button {
     align-self: center;
 }
 
+.name {
+    align-self: center;
+}
+
+.error {
+    color: var(--neg-background-colour);
+}
 
 
 .board-container {
