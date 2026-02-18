@@ -1,7 +1,63 @@
+:root {
+    --main-text-colour: rgb(24, 57, 219);
+    --posi-background-colour: rgb(28, 169, 6);
+    --posi-border-colour: rgb(117, 240, 73);
+    --neg-background-colour: rgb(189, 12, 12);
+    --neg-border-colour: rgb(244, 94, 94);
+}
+
 * {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     box-sizing: border-box;
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.play-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4rem;
+    height: min-content;
+    font-size: 1.5rem;
+    color: var(--main-text-colour)
+}
+
+.info {
+    font-size: 1.5rem;
+    color: var(--main-text-colour)
+}
+
+.button {
+    padding: 0.6rem 2rem 0.6rem 2rem;
+    margin: 0.2rem;
+    border-radius: 8px;
+    color: antiquewhite;
+}
+
+button:hover {
+    filter: brightness(1.1);
+    box-shadow: none;
+}
+
+.posi {
+    background-color: var(--posi-background-colour);
+    border-color: var(--posi-border-colour);
+    
+}
+
+.neg {
+    background-color: var(--neg-background-colour);
+    border-color: var(--neg-border-colour);
+}
+
+
+
 
 .board-container {
     display: grid;
