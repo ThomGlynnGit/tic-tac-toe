@@ -248,7 +248,7 @@ function playChoice(){
     yesBtn.addEventListener("click", () => {
         nameEntry()
 
-        playContainer.innerHTML = ""
+        playContainer.remove()
     })
 
     noBtn.addEventListener("click", () => {
