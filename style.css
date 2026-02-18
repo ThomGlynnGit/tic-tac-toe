@@ -38,6 +38,7 @@ body {
     margin: 0.2rem;
     border-radius: 8px;
     color: antiquewhite;
+    font-size: 1rem;
 }
 
 button:hover {
@@ -48,7 +49,6 @@ button:hover {
 .posi {
     background-color: var(--posi-background-colour);
     border-color: var(--posi-border-colour);
-    
 }
 
 .neg {
@@ -56,6 +56,29 @@ button:hover {
     border-color: var(--neg-border-colour);
 }
 
+form {
+    margin-top: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.name-container {
+    display: flex;
+    gap: 5px;
+}
+.name-input {
+    font-size: 1.2rem;
+}
+
+.name-label {
+    color: var(--main-text-colour);
+    font-size: 1.2rem;
+}
+
+form > .button {
+    width: max-content;
+    align-self: center;
+}
 
 
 
